@@ -1,14 +1,23 @@
+
 package fracCalc;
+
+import java.util.*;
 
 public class FracCalc {
 
     public static void main(String[] args) 
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
-    	
+    	Scanner input = new Scanner(System.in);
+    	String inputAns = input.next();
+    	String inputAnswer = inputAns.trim();
+    	produceAnswer(inputAnswer);
+    	if (inputAnswer == "quit")
+    	{
+    		
+    	}
 
     }
-    
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
     // This function takes a String 'input' and produces the result
     //
@@ -20,10 +29,25 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
         // TODO: Implement this function to produce the solution to the input
+        input.split(" ");
         
         return "";
     }
-
+   
     // TODO: Fill in the space below with any helper methods that you think you will need
-    
+    public static String toImproperFrac(int x, int y, int z) {
+		return ((z * x) + y) + "/" + z;
+    }
+    public static String toMixedNum(int x, int y){
+		if (x % y != 0)
+		{
+			return ((x / y) + "_" + (x % y) + "/" + y );
+		}
+		else
+		{
+			int divide = x / y;
+			String ans = String.valueOf(divide);
+			return ans;
+		}
+	}
 }
