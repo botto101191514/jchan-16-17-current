@@ -29,46 +29,12 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
         // TODO: Implement this function to produce the solution to the input
-        String[] values = input.split(" ");
-        for (int i = 0; i < 4; i+=2)
-        {
-        }
-        if (values[1] == "+")
-        {
-        	sum();
-        }
-        else if (values[1] == "-")
-        {
-        	subtract();
-        }
-        else if (values[1] == "*")
-        {
-        	product();
-        }
-        else
-        {
-        	divide();
-        }	
+        input.split(" ");
+        
         return "";
     }
    
     // TODO: Fill in the space below with any helper methods that you think you will need
-    public static void sum(int x, int y)
-    {
-     
-    }
-    public static void subtract(int x, int y)
-    {
-    	
-    }
-    public static void product(int x, int y)
-    {
-    	
-    }
-    public static void divide(int x, int y)
-    {
-    	
-    }
     public static String toImproperFrac(int x, int y, int z) {
 		return ((z * x) + y) + "/" + z;
     }
