@@ -25,16 +25,6 @@ public class FracCalc {
     { 
         // TODO: Implement this function to produce the solution to the input
         String[] values = input.split(" ");
-        String value1 = values[0].toString();
-        String value2 = values[2].toString();
-        if (value1.indexOf("_") > 0)
-        {
-        	toImproperFrac(value1);
-    	}
-        if (value2.indexOf("_") > 0)
-        {
-        	toImproperFrac(value2);
-        }
         if (values[1] == "+")
         {
         	sum();
@@ -56,22 +46,8 @@ public class FracCalc {
    
     // TODO: Fill in the space below with any helper methods that you think you will need
     public static void getInts(String fraction)
-    {	
-    	int denominator = fraction.indexOf(fraction.indexOf("/") + 1);
-    	int numerator = fraction.indexOf(fraction.indexOf("/") - 1);
-    	int whole = fraction.indexOf(fraction.indexOf("_") - 1);
-    	if (numerator == 0)
-    	{
-    		denominator = 1;
-    	}
-    	if (denominator == 0)
-    	{
-    		System.out.println("ERROR: one of the denominators = 0");
-    	}
-    	else if (denominator == 1);
-    	{
-    		
-    	}
+    {
+    
     }
     public static void sum(int x, int y)
     {
