@@ -257,27 +257,6 @@ public class FracCalc {
     }
     
     
-    public static String parseFrac(String fraction)
-    {
-    	int denominator = getDenom(fraction);
-    	int numerator = getNumer(fraction);
-    	int whole = getNumer(fraction);
-    	if (denominator == 0)
-    	{
-    		System.out.println("ERROR: denominators != 0");
-    	}
-    	else if (denominator == 1)
-    	{
-    		numerator = whole + numerator;
-    	}
-    	else if (whole > 0)
-    	{
-    		String newImproperFrac = toImproperfraction(whole, numerator, denominator);
-    		parseFrac(newImproperFrac);
-    	}
-    	return (numerator + "/" + denominator);
-    }
-    
     public static int absValue (int x){
 		if (x > 0)
 		{
@@ -288,10 +267,38 @@ public class FracCalc {
 			return  x * (-1);
 		}
 	}
+	public static String parseFrac(String fraction)
+	{
+		int denominator = getDenom(fraction);
+		int numerator = getNumer(fraction);
+		int whole = getNumer(fraction);
+		if (denominator == 0)
+		{
+			System.out.println("ERROR: denominators != 0");
+		}
+		else if (denominator == 1)
+		{
+			numerator = whole + numerator;
+		}
+		else if (whole > 0)
+		{
+			String newImproperFrac = toImproperfraction(whole, numerator, denominator);
+			parseFrac(newImproperFrac);
+		}
+		return (numerator + "/" + denominator);
+	}
 	public static int getWhole(String fraction)
 	{
-		int whole = Integer.valueOf(fraction.substring(fraction.indexOf("_") - 1));
-		return whole;
+		if (fraction.indexOf("_") > 0)
+		{
+			int whole = Integer.valueOf(fraction.substring(fraction.indexOf("_") - 1));
+			return whole;
+		}
+		else
+		{
+			int whole = 0;
+			return whole;
+		}
 	}
 	public static int getNumer(String fraction)
 	{
