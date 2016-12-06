@@ -18,7 +18,7 @@ public class FracCalc {
     		{
     			System.out.println("thats an invalid equation");
     		}
-    		produceAnswer(inputAnswer);
+    		System.out.println(parseAnswer(produceAnswer(inputAnswer)));
     		if (inputAns == "quit")
     		{
     			input.close();
@@ -42,25 +42,25 @@ public class FracCalc {
         String values2 = values[2].toString();
         String frac1 = parseFrac(values1);
         String frac2 = parseFrac(values2);
+        int denom1 = getDenom(frac1);
+    	int numer1 = getNumer(frac1);
+    	int denom2 = getDenom(frac2);
+    	int numer2 = getNumer(frac2);
         if (values[1] == "+")
         {
-        	sum(frac1, frac2);
-        	
+        	return sum(numer1, denom1, numer2, denom2);
         }
         else if (values[1] == "-")
         {
-        	 diff(frac1, frac2);
-        	
+        	return diff(numer1, denom1, numer2, denom2);
         }
         else if (values[1] == "*")
         {
-        	 product(frac1, frac2);
-        	
+        	return product(numer1, denom1, numer2, denom2);
         }
         else if (values[1] == "/")
         {
-        	divide(frac1, frac2);
-        	
+        	return divide(numer1, denom1, numer2, denom2);
         }
         else 
         {
@@ -71,191 +71,85 @@ public class FracCalc {
    
     // TODO: Fill in the space below with any helper methods that you think you will need
    
-    public static String sum(String x, String y)
+    public static String sum(int numer1, int denom1, int numer2, int denom2)
     {
-    	int denom1 = getDenom(x);
-    	int numer1 = getNumer(x);
-    	int denom2 = getDenom(y);
-    	int numer2 = getNumer(y);
     	if (denom1 != denom2)
     	{
     		numer1 = numer1 * denom2;
     		numer2 = numer2 * denom2;
     		int denom = denom1 * denom2;
     		int numer = numer1 + numer2;
-    		String sum = numer + "/" + denom;
-    		String negSum = "-" + absValue(numer) + "/" + absValue(denom);
-    		if (numer > 0 && denom > 0)
-    		{
-    			return sum;
-    		}
-    		else if (numer < 0 && denom > 0)
-    		{
-    			return negSum;
-    		}
-    		else if (numer > 0 && denom < 0)
-    		{
-    			return negSum;
-    		}
-    		else
-    		{
-    			return sum;
-    		}
+    		return numer + "/" + denom; 
     	}
     	else
     	{
     		int numer = numer1 + numer2;
-    		String sum = numer + "/" + denom1;
-    		String negSum = "-" + absValue(numer) + "/" + absValue(denom1);
-    		if (numer > 0 && denom1 > 0)
-    		{
-    			return sum;
-    		}
-    		else if (numer < 0 && denom1 > 0)
-    		{
-    			return negSum;
-    		}
-    		else if (numer > 0 && denom1 < 0)
-    		{
-    			return negSum;
-    		}
-    		else
-    		{
-    			return sum;
-    		}
+    		return numer + "/" + denom1; 
     	}
     }
  
-    public static String diff(String x, String y)
+    public static String diff(int numer1, int denom1, int numer2, int denom2)
     {
-    	int denom1 = getDenom(x);
-    	int numer1 = getNumer(x);
-    	int denom2 = getDenom(y);
-    	int numer2 = getNumer(y);
     	if (denom1 != denom2)
     	{
     		numer1 = numer1 * denom2;
     		numer2 = numer2 * denom2;
     		int denom = denom1 * denom2;
     		int numer = numer1 - numer2;
-    		String diff = numer + "/" + denom;
-    		String negDiff = "-" + absValue(numer) + "/" + absValue(denom);
-    		if (numer > 0 && denom > 0)
-    		{
-    			return diff;
-    		}
-    		else if (numer < 0 && denom > 0)
-    		{
-    			return negDiff;
-    		}
-    		else if (numer > 0 && denom < 0)
-    		{
-    			return negDiff;
-    		}
-    		else
-    		{
-    			return diff;
-    		}
+    		return numer + "/" + denom; 
     	}
     	else
     	{
     		int numer = numer1 - numer2;
-    		String diff = numer + "/" + denom1;
-    		String negDiff = "-" + absValue(numer) + "/" + absValue(denom1);
-    		if (numer > 0 && denom1 > 0)
-    		{
-    			return diff;
-    		}
-    		else if (numer < 0 && denom1 > 0)
-    		{
-    			return negDiff;
-    		}
-    		else if (numer > 0 && denom1 < 0)
-    		{
-    			return negDiff;
-    		}
-    		else
-    		{
-    			return diff;
-    		}
+    		return numer + "/" + denom1; 
     	}
     }
     
-    public static String product(String x, String y)
+    public static String product(int numer1, int denom1, int numer2, int denom2)
     {
-    	int denom1 = getDenom(x);
-    	int numer1 = getNumer(x);
-    	int denom2 = getDenom(y);
-    	int numer2 = getNumer(y);
     	int denom = denom1 * denom2;
     	int numer = numer1 * numer2;
-    	String negProduct = "-" + numer + "/" + denom;
-    	String posProduct = numer + "/" + denom;
-    	if (denom > 0 && numer < 0)
-    	{
-    		absValue(denom);
-    		absValue(numer);
-    		return negProduct;
-    	}
-    	else if (denom < 0 && numer > 0)
-    	{
-    		absValue(denom);
-    		absValue(numer);
-    		return negProduct;
-    	}
-    	else if (denom1 < 0 && numer1 < 0)
-    	{
-    		absValue(denom);
-    		absValue(numer);
-    		
-    		return posProduct;
-    	}
-    	else
-    	{
-    		return posProduct;
-    	}
-    	
+    	return numer + "/" + denom; 
     }
     
-    public static String divide(String x, String y)
+    public static String divide(int numer1, int denom1, int numer2, int denom2)
     {
-    	int denom1 = getDenom(x);
-    	int numer1 = getNumer(x);
-    	int denom2 = getDenom(y);
-    	int numer2 = getNumer(y);
     	int placeholder = numer2;
     	numer2 = denom2;
     	denom2 = placeholder;
     	int denom = denom1 * denom2;
     	int numer = numer1 * numer2;
-    	String negDiv = "-" + numer + "/" + denom;
-    	String posDiv = numer + "/" + denom;
+    	return numer + "/" + denom; 
+    }
+    public static String negCheck(String fraction)
+    {
+    	int numer = getNumer(fraction);
+    	int denom = getDenom(fraction);
+    	String negFrac = "-" + numer + "/" + denom;
+    	String posFrac = numer + "/" + denom;
     	if (denom > 0 && numer < 0)
     	{
     		absValue(denom);
     		absValue(numer);
-    		return negDiv;
+    		return negFrac;
     	}
     	else if (denom < 0 && numer > 0)
     	{
     		absValue(denom);
     		absValue(numer);
-    		return negDiv;
+    		return negFrac;
     	}
-    	else if (denom1 < 0 && numer1 < 0)
+    	else if (denom < 0 && numer < 0)
     	{
     		absValue(denom);
     		absValue(numer);
-    		
-    		return posDiv;
+    		return posFrac;
     	}
     	else
     	{
-    		return posDiv;
+    		return posFrac;
     	}
-    	
     }
-    
     
     public static String parseFrac(String fraction)
     {
@@ -275,9 +169,26 @@ public class FracCalc {
     		String newImproperFrac = toImproperfraction(whole, numerator, denominator);
     		parseFrac(newImproperFrac);
     	}
-    	return (numerator + "/" + denominator);
+    	return numerator + "/" + denominator;
     }
     
+    public static String parseAnswer(String fraction)
+    {
+    	int denominator = getDenom(fraction);
+    	int numerator = getNumer(fraction);
+    	int simplify = gcf(numerator, denominator);
+    	numerator = numerator / simplify;
+    	denominator = denominator / simplify;
+    	if (numerator > denominator)
+    	{
+    		String frac = toMixedNum(numerator, denominator);
+    		return frac;
+    	}
+    	else
+    	{
+    		return numerator + "/" + denominator;
+    	}
+    }
     public static int absValue (int x){
 		if (x > 0)
 		{
@@ -290,18 +201,42 @@ public class FracCalc {
 	}
 	public static int getWhole(String fraction)
 	{
-		int whole = Integer.valueOf(fraction.substring(fraction.indexOf("_") - 1));
-		return whole;
+		if (fraction.indexOf("_") > 0)
+		{
+			int whole = Integer.valueOf(fraction.substring(fraction.indexOf("_") - 1));
+			return whole;
+		}
+		else
+		{
+			int whole = 0;
+			return whole;
+		}
 	}
 	public static int getNumer(String fraction)
 	{
-		int numerator = Integer.valueOf(fraction.substring(fraction.indexOf("/") - 1));
-		return numerator;
+		if (fraction.indexOf("/") > 0)
+		{
+			int numerator = Integer.valueOf(fraction.substring(0, fraction.indexOf("/")));
+			return numerator;
+		}
+		else 
+		{
+			int numerator = 0;
+			return numerator;
+		}
 	}
 	public static int getDenom(String fraction)
 	{
-		int denominator = Integer.valueOf(fraction.substring(fraction.indexOf("/") + 1));
-		return denominator;
+		if (fraction.indexOf("/") > 0)
+		{
+			int denominator = Integer.valueOf(fraction.substring(fraction.indexOf("/") + 1));
+			return denominator;
+		}
+		else
+		{
+			int denominator = 1;
+			return denominator;
+		}
 	}
 	public static String toMixedNum(int x, int y){
 		if (x % y != 0 && x > y)
@@ -320,4 +255,17 @@ public class FracCalc {
     {
 		return ((z * x) + y) + "/" + z;
     }
+    public static int gcf(int a, int b)
+    {
+    	if (a > b)
+    	{
+    		int x = a - b;
+    		return x;
+    	}
+    	else
+    	{
+    		int x = b - a;
+    		return x;
+    	}
+	}
 }
