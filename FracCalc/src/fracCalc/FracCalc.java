@@ -93,9 +93,9 @@ public class FracCalc {
     
     public static String parseFrac(String fraction)
     {
-    	int denominator = fraction.indexOf(fraction.indexOf("/") + 1);
-    	int numerator = fraction.indexOf(fraction.indexOf("/") - 1);
-    	int whole = fraction.indexOf(fraction.indexOf("_") - 1);
+    	int denominator = Integer.valueOf(fraction.substring(fraction.indexOf("/") + 1));
+    	int numerator = Integer.valueOf(fraction.substring(fraction.indexOf("/") - 1));
+    	int whole = Integer.valueOf(fraction.substring(fraction.indexOf("_") - 1));
     	if (denominator == 0)
     	{
     		System.out.println("ERROR: denominators != 0");
