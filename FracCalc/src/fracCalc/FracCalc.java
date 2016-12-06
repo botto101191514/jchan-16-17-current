@@ -1,4 +1,3 @@
-
 package fracCalc;
 
 import java.util.*;
@@ -66,27 +65,7 @@ public class FracCalc {
     }
    
     // TODO: Fill in the space below with any helper methods that you think you will need
-    public static String parseFrac(String fraction)
-    {
-    	int denominator = fraction.indexOf(fraction.indexOf("/") + 1);
-    	int numerator = fraction.indexOf(fraction.indexOf("/") - 1);
-    	int whole = fraction.indexOf(fraction.indexOf("_") - 1);
-    	if (denominator == 0)
-    	{
-    		System.out.println("ERROR: denominators != 0");
-    	}
-    	else if (denominator == 1)
-    	{
-    		numerator = whole + numerator;
-    	}
-    	else if (whole > 0)
-    	{
-    		String newImproperFrac = toImproperfraction(whole, numerator, denominator);
-    		parseFrac(newImproperFrac);
-    	}
-    	return (numerator + "/" + denominator);
-    }
-    
+   
     public static String sum(String x, String y)
     {
     	return "";
@@ -110,6 +89,27 @@ public class FracCalc {
     
     public static String toImproperfraction(int x, int y, int z) {
 		return ((z * x) + y) + "/" + z;
+    }
+    
+    public static String parseFrac(String fraction)
+    {
+    	int denominator = fraction.indexOf(fraction.indexOf("/") + 1);
+    	int numerator = fraction.indexOf(fraction.indexOf("/") - 1);
+    	int whole = fraction.indexOf(fraction.indexOf("_") - 1);
+    	if (denominator == 0)
+    	{
+    		System.out.println("ERROR: denominators != 0");
+    	}
+    	else if (denominator == 1)
+    	{
+    		numerator = whole + numerator;
+    	}
+    	else if (whole > 0)
+    	{
+    		String newImproperFrac = toImproperfraction(whole, numerator, denominator);
+    		parseFrac(newImproperFrac);
+    	}
+    	return (numerator + "/" + denominator);
     }
     
     public static String toMixedNum(int x, int y){
