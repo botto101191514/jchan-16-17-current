@@ -8,10 +8,23 @@ public class FracCalc {
     public static void main(String[] args) 
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
-    	Scanner input = new Scanner(System.in);
-    	String inputAns = input.next();
-    	String inputAnswer = inputAns.trim();
-    	produceAnswer(inputAnswer);
+    	int inputNums = 1;
+    	while (inputNums < inputNums + 1)
+    	{
+    		System.out.println("please enter an equation in the form of: x + y");
+    		Scanner input = new Scanner(System.in);
+    		String inputAns = input.next();
+    		String inputAnswer = inputAns.trim();
+    		if (inputAnswer.indexOf(" ") < 0)
+    		{
+    			System.out.println("thats an invalid equation");
+    		}
+    		produceAnswer(inputAnswer);
+    		if (inputAns == "quit")
+    		{
+    			System.exit(0);
+    		}
+    	}
     }
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
     // This function takes a String 'input' and produces the result
@@ -25,73 +38,80 @@ public class FracCalc {
     { 
         // TODO: Implement this function to produce the solution to the input
         String[] values = input.split(" ");
-        String value1 = values[0].toString();
-        String value2 = values[2].toString();
-        if (value1.indexOf("_") > 0)
-        {
-        	toImproperFrac(value1);
-    	}
-        if (value2.indexOf("_") > 0)
-        {
-        	toImproperFrac(value2);
-        }
+        String values1 = values[0].toString();
+        String values2 = values[2].toString();
+        String frac1 = parseFrac(values1);
+        String frac2 = parseFrac(values2);
         if (values[1] == "+")
         {
-        	sum();
+        	sum(frac1, frac2);
         }
         else if (values[1] == "-")
         {
-        	subtract();
+        	subtract(frac1, frac2);
         }
         else if (values[1] == "*")
         {
-        	product();
+        	product(frac1, frac2);
         }
-        else
+        else if (values[1] == "/")
         {
-        	divide();
-        }	
+        	divide(frac1, frac2);
+        }
+        else 
+        {
+        	System.out.println("invalid input");
+        }
         return "";
     }
    
     // TODO: Fill in the space below with any helper methods that you think you will need
-    public static void getInts(String fraction)
-    {	
+    public static String parseFrac(String fraction)
+    {
     	int denominator = fraction.indexOf(fraction.indexOf("/") + 1);
     	int numerator = fraction.indexOf(fraction.indexOf("/") - 1);
     	int whole = fraction.indexOf(fraction.indexOf("_") - 1);
-    	if (numerator == 0)
-    	{
-    		denominator = 1;
-    	}
     	if (denominator == 0)
     	{
-    		System.out.println("ERROR: one of the denominators = 0");
+    		System.out.println("ERROR: denominators != 0");
     	}
-    	else if (denominator == 1);
+    	else if (denominator == 1)
     	{
-    		
+    		numerator = whole + numerator;
     	}
+    	else if (whole > 0)
+    	{
+    		String newImproperFrac = toImproperfraction(whole, numerator, denominator);
+    		parseFrac(newImproperFrac);
+    	}
+    	return (numerator + "/" + denominator);
     }
-    public static void sum(int x, int y)
+    
+    public static String sum(String x, String y)
+    {
+    	return "";
+    }
+    
+    public static String subtract(String x, String y)
+    {
+    	return "";
+    }
+    
+    public static String product(String x, String y)
     {
     	
+    	return "";
     }
-    public static void subtract(int x, int y)
+    
+    public static String divide(String x, String y)
     {
-    	
+    	return "";
     }
-    public static void product(int x, int y)
-    {
-    	
-    }
-    public static void divide(int x, int y)
-    {
-    	
-    }
-    public static String toImproperFrac(int x, int y, int z) {
+    
+    public static String toImproperfraction(int x, int y, int z) {
 		return ((z * x) + y) + "/" + z;
     }
+    
     public static String toMixedNum(int x, int y){
 		if (x % y != 0)
 		{
