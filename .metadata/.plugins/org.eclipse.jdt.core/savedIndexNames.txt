@@ -1,22 +1,6 @@
-INDEX VERSION 1.129+C:\Users\Jason\Desktop\jchan-16-17-current\.metadata\.plugins\org.eclipse.jdt.core
-4022713689.index
-1545417735.index
-1047353270.index
-1294244358.index
-128482864.index
-1728642882.index
-1750058806.index
-69682449.index
-3338684372.index
+INDEX VERSION 1.129+C:\Users\APCS1\Desktop\jchan-16-17-current\.metadata\.plugins\org.eclipse.jdt.core
+1071763191.index
 639057739.index
-2407591640.index
-2569705209.index
-1340320222.index
-3508997439.index
-1995363533.index
-1280305850.index
-2036858435.index
-2477846846.index
-2510392829.index
-455560408.index
-3677605692.index
+1145519623.index
+128482864.index
+2902927186.index
