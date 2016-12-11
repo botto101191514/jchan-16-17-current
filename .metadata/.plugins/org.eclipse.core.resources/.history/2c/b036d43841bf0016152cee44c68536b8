@@ -1,0 +1,313 @@
+package fracCalc;
+import java.util.*;
+public class FracCalc {
+  public static void main(String[] args) 
+    {
+        // TODO: Read the input from the user and call produceAnswer with an equation
+    	
+    	Scanner stupid = new Scanner(System.in);
+    	String input = stupid.nextLine();
+    	if(input.equals("quit")==false){
+    	produceAnswer(input);
+    	System.out.println(input);
+    	}
+    }
+    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code 
+    // This function takes a String 'input' and produces the result
+    //
+    // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
+    //      e.g. input ==> "1/2 + 3/4"
+    //        
+    // The function should return the result of the fraction after it has been calculated
+    //      e.g. return ==> "1_1/4"
+    public static String produceAnswer(String input)
+    { 
+    	String[]kys = input.split(" ");
+    	System.out.println(kys.length);
+    	String firstOperand = kys[0];
+    	String operator = kys[1];
+    	String secondOperand = kys[2];  
+    	String zero = "0";
+    		if(operator.equals("+")){
+    			  return AddingFractions(parseOperand(firstOperand),parseOperand(secondOperand));	     
+        	}
+        	if(operator.equals("-")){
+        	 return SubtractingFractions(parseOperand(firstOperand),parseOperand(secondOperand));
+        	}
+        	if(operator.equals("/")){
+        	       return DividingFractions(parseOperand(firstOperand),parseOperand(secondOperand));
+        	}
+        	else if(operator.equals("*")){
+        	       return MultiplyingFractions(parseOperand(firstOperand),parseOperand(secondOperand));
+
+        	}
+        	if(firstOperand.equals(secondOperand) && operator.equals("-")){
+        		return zero;
+        	}
+        	else {
+        		return "";
+        	}
+    }
+    public static String AddingFractions(int[] operand1, int[] operand2) {
+     	int[] sumFrac = new int[2];
+     	if (operand1[1] == operand2[1]){
+     		sumFrac[0] = operand1[0] + operand2[0];
+     		sumFrac[1] = operand1[1];
+     	} else{
+     		sumFrac[1] = operand1[1] * operand2[1];
+     		operand1[0] *= operand2[1];
+     		operand2[0] *= operand1[1];
+     	}
+     	
+     	
+    public static String SubtractingFractions(int[]kys1,int[]kys2) {
+		// TODO Auto-generated method stub
+		String Fraction1 = toImproperFrac(kys1);
+		String Fraction2 = toImproperFrac(kys2);	
+		int Frac1numerator = Integer.parseInt(Fraction1.substring(0,Fraction1.indexOf("/")));
+		int Frac2numerator = Integer.parseInt(Fraction2.substring(0,Fraction2.indexOf("/")));
+    	int frac1denominator = Integer.parseInt(Fraction1.substring(Fraction1.indexOf("/")+1));
+    	int frac2denominator = Integer.parseInt(Fraction2.substring(Fraction2.indexOf("/")+1));
+    	if(frac1denominator != frac2denominator){
+    		 Frac1numerator *=  frac2denominator;
+             (Frac2numerator)*= frac1denominator;
+             absValue(Frac1numerator);
+             absValue(Frac2numerator);
+             int denom = frac1denominator * frac2denominator;
+             int numer = Frac1numerator - Frac2numerator;
+             String result = numer + "/" + denom;
+             String negativeresult = "-" + absValue(numer) + "/" + absValue(denom);
+             if (numer > 0 && denom > 0)
+             {
+                 return result;
+             }
+             else if (numer < 0 && denom > 0)
+             {
+                 return negativeresult;
+             }
+             else if (numer > 0 && denom < 0)
+             {
+                 return negativeresult;
+             }
+             else
+             {
+                 return result;
+             }
+         }
+         else
+         {
+             int numer = Frac1numerator - Frac2numerator;
+             String result = numer + "/" + frac1denominator;
+             String negativeresult = "-" + absValue(numer) + "/" + absValue(frac1denominator);
+             if (numer > 0 && frac1denominator > 0)
+             {
+                 return result;
+             }
+             else if (numer < 0 && frac1denominator > 0)
+             {
+                 return negativeresult;
+             }
+             else if (numer > 0 && frac1denominator < 0)
+             {
+                 return negativeresult;
+             }
+             else
+             {
+                 return result;
+             }
+         }
+     }
+	public static String MultiplyingFractions(int[]kys1,int[]kys2)	{
+		String Fraction1 = toImproperFrac(kys1);
+		String Fraction2 = toImproperFrac(kys2);
+		int Frac1numerator = Integer.parseInt(Fraction1.substring(0,Fraction1.indexOf("/")));
+		int Frac2numerator = Integer.parseInt(Fraction2.substring(0,Fraction2.indexOf("/")));
+    	int frac1denominator = Integer.parseInt(Fraction1.substring(Fraction1.indexOf("/")+1));
+    	int frac2denominator = Integer.parseInt(Fraction2.substring(Fraction2.indexOf("/")+1));
+    	int numerator = Frac1numerator * Frac2numerator;
+    	int denominator = frac2denominator * frac1denominator;
+    	String negativeresult =   numerator + "/" + denominator;
+        String positiveresult =  absValue(numerator) + "/" + absValue(denominator);
+        String zeroresult = "0";
+        if (denominator > 0 && numerator < 0)
+        {
+            absValue(denominator);
+            absValue(numerator);
+            return negativeresult;
+        }
+        else if (denominator < 0 && numerator > 0)
+        {
+            absValue(denominator);
+            absValue(numerator);
+            return negativeresult;
+        }
+        else if (frac1denominator < 0 && Frac1numerator < 0)
+        {
+            absValue(denominator);
+            absValue(numerator);
+            return positiveresult;
+        }
+        else if(Frac1numerator == 0 || Frac2numerator ==0){
+        	return zeroresult;
+        }
+        else
+        {
+            return positiveresult;
+        }		 
+	}
+	
+public static String DividingFractions(int[]kys1,int[]kys2) {
+		// TODO Auto-generated method stub
+		String Fraction1 = toImproperFrac(kys1);
+		String Fraction2 = toImproperFrac(kys2);
+		String zero ="0";
+		int Frac1numerator = Integer.parseInt(Fraction1.substring(0,Fraction1.indexOf("/")));
+		int Frac2numerator = Integer.parseInt(Fraction2.substring(0,Fraction2.indexOf("/")));
+    	int frac1denominator = Integer.parseInt(Fraction1.substring(Fraction1.indexOf("/")+1));
+    	int frac2denominator = Integer.parseInt(Fraction2.substring(Fraction2.indexOf("/")+1));
+    	int holdernumber = Frac2numerator;
+    	Frac2numerator = frac2denominator;
+        frac2denominator = holdernumber;
+        int actualdenominator = frac1denominator * frac2denominator;
+        int actualnumerator = Frac1numerator * Frac2numerator;
+        String notPositiveResult = "-" + actualnumerator + "/" + actualdenominator;
+        String notNegativeResult = actualnumerator + "/" + actualdenominator;
+        if (actualdenominator > 0 && actualnumerator < 0)
+        {
+            absValue(actualdenominator);
+            absValue(actualnumerator);
+            return notPositiveResult;
+        }
+        else if (actualdenominator < 0 && actualnumerator > 0)
+        {
+            absValue(actualdenominator);
+            absValue(actualnumerator);
+            return notPositiveResult;
+        }
+        else if (frac1denominator < 0 && Frac1numerator < 0)
+        {
+            absValue(actualdenominator);
+            absValue(actualnumerator);
+             notNegativeResult = toMixedNum(actualnumerator,actualdenominator);
+            return notNegativeResult;
+        }
+        else if(frac1denominator == 0 || frac2denominator == 0){
+        	return zero;
+        }
+        else
+        {
+            return notNegativeResult;
+        }
+         
+    }
+
+    // TODO: Fill in the space below with any helper methods that you think you will need
+   public static int[] parseOperand(String operand){ 
+	   int whole1 = 0;
+	   int denominator2 = 0;
+	   int numerator2 = 0;
+   	if(operand.indexOf("_")==-1 && operand.indexOf("/")==-1 ){
+		String Whole = operand;
+		int whole = Integer.parseInt(Whole);
+		int Numerator = 0;
+		int Denominator = 1;
+		int[]kys ={whole,Numerator,Denominator};
+		return kys ;
+   	}
+	else if(operand.indexOf("/")==-1){
+		String Whole = operand.substring(0,operand.indexOf("_"));
+		int whole =  Integer.parseInt(Whole);
+    	String Numerator = operand.substring(operand.indexOf("_")+1,operand.indexOf("/"));
+    	int numerator = Integer.parseInt(Numerator);
+    	String Denominator = operand.substring(operand.indexOf("/")+1);
+    	int denominator = Integer.parseInt(Denominator);
+    	int[]kys ={whole,numerator,denominator}; 
+		return kys;
+	}
+	else if(operand.indexOf("_")==-1){
+		int Whole = 0;
+		String Numerator = operand.substring(0,operand.indexOf("/"));
+		int numerator = Integer.parseInt(Numerator);
+		String Denominator = operand.substring(operand.indexOf("/")+1);
+		int denominator = Integer.parseInt(Denominator);
+		int[]kys ={Whole,numerator,denominator};
+		return kys;
+	}
+	else if(operand.indexOf("_")>=0 && operand.indexOf("/")>=0){
+		String Whole = operand.substring(0,operand.indexOf("_"));
+		int whole =  Integer.parseInt(Whole);
+		String Numerator = operand.substring(operand.indexOf("_")+1,operand.indexOf("/"));
+		int numerator = Integer.parseInt(Numerator);
+		String Denominator = operand.substring(operand.indexOf("/")+1);
+		int denominator = Integer.parseInt(Denominator);
+		int[]kys ={whole,numerator,denominator};
+		return kys;
+	}
+   	int[]kys1 = {whole1,denominator2,numerator2};
+   	return kys1;
+   }
+	
+   public static String toImproperFrac(int[]array2) { 
+	   if(array2[0]<0){
+		 int whole = array2[0] * array2[1];
+		 int numerator = array2[2];
+		 int denominator = array2.length-1;
+		 return((denominator*whole)+numerator) + "/" + denominator;
+	   }
+		  int wholenumber = array2[0];
+	   	  int numerator = array2[1];
+	   	  int denominator = array2[2];
+       return ((denominator * wholenumber) + numerator) + "/" + denominator;
+   }
+   public static int absValue (int number){ 
+       if (number > 0){
+           return number * (1);
+           }
+       else {
+   return  number * (-1);
+   }
+ }
+   public static String toMixedNum(int numerator, int denominator){ 
+   	if(numerator%denominator>0){
+        String mixednum = ((numerator / denominator) + "_" + (numerator % denominator) + "/" + denominator );
+        return mixednum;
+   	}
+   	else{
+   		int wholenumber = numerator/denominator;
+   		String result = Integer.toString(wholenumber);
+   		return result;
+   	}
+}
+   public static String parseAnswer(String fraction)
+   {
+   	int denominator = Integer.parseInt(fraction.substring(fraction.indexOf("/") + 1));
+   	int numerator =  Integer.parseInt(fraction.substring(fraction.indexOf("/") ));
+   	int simplify = gcf(numerator, denominator);
+   	numerator = numerator / simplify;
+   	denominator = denominator / simplify;
+   	if (numerator > denominator)
+   	{
+   		String frac = toMixedNum(numerator, denominator);
+   		return frac;
+   	}
+   	else
+   	{
+   		return numerator + "/" + denominator;
+   	}
+   }
+   public static int gcf(int a , int b){       
+       while (a != 0 && b != 0){
+           if (a >= b)
+           {
+               a = a - b;
+           }
+           else
+               b = b - a;
+       }
+       if (a == 0){
+       	return b;
+       }
+       else return a;
+	}
+}
+

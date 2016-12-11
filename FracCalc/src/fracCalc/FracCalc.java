@@ -8,22 +8,17 @@ public class FracCalc {
     {
     	
         // TODO: Read the input from the user and call produceAnswer with an equation
-    	Scanner input = new Scanner(System.in);
-    	int inputNums = 1;
-    	while (inputNums < inputNums + 1)
+    	System.out.println("please enter an equation");
+    	Scanner equation = new Scanner(System.in);
+    	String input = equation.nextLine();
+    	if(input.equals ("quit") == false)
     	{
-    		System.out.println("please enter an equation in the form of: x + y");
-    		String inputAnswer = input.next();
-    		if (inputAnswer == "quit")
-    		{
-    			input.close();
-    			System.exit(0);
-    		}
-    		else 
-    		{
-    			inputAnswer = inputAnswer.trim();
-           		System.out.println(produceAnswer(inputAnswer));
-    		}
+    		System.out.println(produceAnswer(input));
+    	}
+    	else 
+    	{
+    		System.exit(0);
+    		equation.close();
     	}
     }
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -34,36 +29,36 @@ public class FracCalc {
     //        
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
+    // TODO: Implement this function to produce the solution to the input
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input
         String[] value = input.split(" ");
-        System.out.println(value.length);
-        String values1 = value[0];
-        String values2 = value[2];
+        
+        String operand1 = value[0];
+        String operand2 = value[2];
         String operator = value[1];
-        String frac1 = parseFrac(values1);
-        String frac2 = parseFrac(values2);
+        String frac1 = parseFrac(operand1);
+        String frac2 = parseFrac(operand2);
         int denom1 = getDenom(frac1);
     	int numer1 = getNumer(frac1);
     	int denom2 = getDenom(frac2);
     	int numer2 = getNumer(frac2);
-        if (operator == "+")
+        if (operator.equals("+"))
         {
         	String sum = sum(numer1, denom1, numer2, denom2);
         	return parseAnswer(sum);
         }
-        else if (operator == "-")
+        else if (operator.equals("-"))
         {
         	String diff = diff(numer1, denom1, numer2, denom2);
         	return parseAnswer(diff);
         }
-        else if (operator == "*")
+        else if (operator.equals("*"))
         {
         	String product = product(numer1, denom1, numer2, denom2);
         	return parseAnswer(product);
         }
-        else if (operator == "/")
+        else if (operator.equals("/"))
         {
         	String divide = divide(numer1, denom1, numer2, denom2);
         	return parseAnswer(divide);
@@ -162,39 +157,44 @@ public class FracCalc {
     	int denominator = getDenom(fraction);
     	int numerator = getNumer(fraction);
     	int whole = getNumer(fraction);
-    	if (denominator == 0)
+    	if (whole >= 1 && denominator > 0)
     	{
-    		System.out.println("ERROR: denominators != 0");
+    		int simplify = gcf(numerator, denominator);
+        	numerator = numerator / simplify;
+        	denominator = denominator / simplify;
+    		toImproperfraction(whole, numerator, denominator);
+    		return numerator + "/" + denominator;
     	}
-    	else if (denominator == 1)
+    	else if (whole >= 1 && denominator == 0)
     	{
-    		numerator = whole + numerator;
-    	}
-    	else if (whole > 0)
-    	{
-    		String newImproperFrac = toImproperfraction(whole, numerator, denominator);
-    		parseFrac(newImproperFrac);
-    	}
-    	return numerator + "/" + denominator;
-    }
-    
-    public static String parseAnswer(String fraction)
-    {
-    	int denominator = getDenom(fraction);
-    	int numerator = getNumer(fraction);
-    	int simplify = gcf(numerator, denominator);
-    	numerator = numerator / simplify;
-    	denominator = denominator / simplify;
-    	if (numerator > denominator)
-    	{
-    		String frac = toMixedNum(numerator, denominator);
-    		return frac;
+    		return whole + "/" + 1;
     	}
     	else
     	{
     		return numerator + "/" + denominator;
     	}
     }
+    
+    public static String parseAnswer(String fraction)
+    {
+    	int denominator = getDenom(fraction);
+    	int numerator = getNumer(fraction);
+    	
+    	if (numerator > denominator)
+    	{
+    		String frac = toMixedNum(numerator, denominator);
+    		return frac;
+    	}
+    	else if (numerator == 0)
+    	{
+    		return "0";
+    	}
+    	else
+    	{
+    		return numerator + "/" + denominator;
+    	}
+    }
+    
     public static int absValue (int x){
 		if (x > 0)
 		{
@@ -214,7 +214,7 @@ public class FracCalc {
 		}
 		else
 		{
-			int whole = 0;
+			int whole = Integer.valueOf(fraction);
 			return whole;
 		}
 	}
